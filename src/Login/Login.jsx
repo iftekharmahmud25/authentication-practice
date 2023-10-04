@@ -1,12 +1,28 @@
+import {  useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../Componants/MainLayout/Navbar/Porvider/AuthProvider";
 
 const Login = () => {
 
-  const handLogin = e =>{
+ const { signInUser }   = useContext(AuthContext)
+
+
+
+  const handleLogin = e =>{
      e.preventDefault();
-     const email = e.target.email.value;
-     const password = e.target.password.value;
+    
+     const email = e.target.email.value
+     const password = e.target.password.value
      console.log(email,password);
+
+     signInUser(email,password)
+
+     .then(result =>{
+         console.log(result.user);
+     } )
+     .catch(error =>{
+          console.log(error);
+     })
   }
 
 
@@ -19,7 +35,7 @@ const Login = () => {
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <div className="card-body">
-            <form onSubmit={handLogin}>
+            <form onSubmit={handleLogin}>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
